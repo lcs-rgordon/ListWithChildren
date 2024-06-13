@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ExpandableListView.swift
 //  ListWithChildren
 //
 //  Created by Russell Gordon on 2024-06-13.
@@ -26,20 +26,27 @@ let parents = [Parent(name: "Mark",
 
 
 // VIEW
-struct ContentView: View {
+struct ExpandableListView: View {
     
     // MARK: Stored properties
     
     // MARK: Computed properties
     var body: some View {
-        VStack {
-            List(parents, children: \.children) { parent in
-                Text("\(parent.name)")
+        NavigationStack {
+            VStack {
+                List(parents, children: \.children) { parent in
+                    NavigationLink {
+                        DetailView(name: parent.name)
+                    } label: {
+                        Text("\(parent.name)")
+                    }
+                }
             }
+            .navigationTitle("Expanding Lists")
         }
     }
 }
 
 #Preview {
-    ContentView()
+    ExpandableListView()
 }
